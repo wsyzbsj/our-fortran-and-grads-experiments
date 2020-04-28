@@ -28,13 +28,24 @@ program main
       print *,"第",i,"个站点的标准差为",bzc(i)
       enddo
 
-      do k=1,2
-            do l=(k+1),3
+      zjz2=0
       do j=1,5
-      zjz2=(sj(k,j)-pj(k))*(sj(l,j)-pj(l))+zjz2
+      zjz2=(sj(1,j)-pj(1))*(sj(2,j)-pj(2))+zjz2
       enddo
-      r=0.2*zjz2/bzc(k)/bzc(l)
+      r=0.2*zjz2/bzc(1)/bzc(2)
+      print *,"1与2的相关系数为",r
+      
+      zjz2=0
+      do j=1,5
+            zjz2=(sj(2,j)-pj(2))*(sj(3,j)-pj(3))+zjz2
       enddo
+      r=0.2*zjz2/bzc(2)/bzc(3)
+      print *,"2与3的相关系数为",r
+      
+      zjz2=0      
+      do j=1,5
+            zjz2=(sj(1,j)-pj(1))*(sj(3,j)-pj(3))+zjz2
       enddo
-      print *,k,"与",l,"的相关系数为",r
+      r=0.2*zjz2/bzc(1)/bzc(3)
+      print *,"1与3的相关系数为",r
 end program main
