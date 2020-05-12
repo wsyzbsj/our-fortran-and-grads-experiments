@@ -7,7 +7,7 @@ program main
 	open(1,file='data.txt',form='formatted')
 	allocate(yf(5))
 	allocate(sj(5))
-	read(1,*) yf(:)
+	read(1) yf(:)
 	do i=1,3
 		read(1,*) sj(:)
 		zl=sum(sj)
