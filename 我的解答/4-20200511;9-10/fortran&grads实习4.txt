@@ -1,0 +1,63 @@
+Fortran程序(01.f90)代码：
+program main
+      implicit none
+      real :: u(48,17,37),v(48,17,37)
+      integer :: i,j,k
+      open(1,file='U850.DAT',form='formatted')
+      do i=1,48
+            read(1,*)
+                  do j=1,17
+                        read(1,"(37F6.2)")   u(i,j,:)
+                  enddo
+      enddo
+      close(1)
+      open(2,file='V850.DAT',form='formatted')
+      do i=1,48
+            read(2,*)
+                  do j=1,17
+                        read(2,"(37F6.2)")   v(i,j,:)
+                  enddo
+      enddo
+      close(2)
+      open(3,file='data.dat',form='unformatted',access='stream')
+      do i=1,48
+            write(3)    ((v(i,j,k),k=1,37),j=1,17)
+            write(3)    ((u(i,j,k),k=1,37),j=1,17)
+      enddo
+      close(3)
+end program main
+data.ctl(数据描述文件)代码：
+dset ^data.dat
+xdef  37    linear      60    2.5
+ydef  17    linear      0     2.5
+zdef  1     levels      850
+undef -2e33
+tdef  48    linear      JAN1982     1MO
+vars  2
+v     1     99    v-wind-speed
+u     1     99    u-wind-speed
+endvars
+data.gs(grads脚本)代码：
+'open data.ctl'
+'set lon 60 150'
+'set lat 0 40'
+'set gxout vector'
+t=1
+while(t<=48)
+'draw title wind-field-'t'*month'
+'set t 't''
+'d u;v'
+'printim vector'%t%'.png'
+t=t+1
+'c'
+endwhile
+;
+'disable fwrite'
+
+后记：将输出图片合并为一个gif动图参考了https://www.cnblogs.com/Parallel-Life/archive/2013/01/19/2867447.html所说的办法。
+命令:
+convert -delay 50 vector*.png vector.gif
+但是不足之处在于:
+一．1-9都是我自己手动添的0。
+二．第一张图片的draw title始终无法显示出来，无论 win10装的opengrads2.2.1还是debian sid源里的grads2.2.1都是如此，不知何故。最后用还是用gimp给它补上的。
+gif在附件。

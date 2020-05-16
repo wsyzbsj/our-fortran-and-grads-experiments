@@ -1,0 +1,50 @@
+T1.model1.gs代码:
+'open model.ctl'
+'set z 4'
+'set lon -90 30'
+'set lat 0 90'
+m=1
+while(m<=5)
+'set t 'm''
+'set cmax 260'
+'set cmin 250'
+'set gxout shaded'
+'d tair'
+'cbarn'
+'set gxout contour'
+'d hgt'
+'set gxout vector'
+'set ccolor 4'
+'d u;v'
+'draw title Time='m''
+'printim horizontal'%m%'.png'
+'disable fwrite'
+m=m+1
+'c'
+endwhile
+;
+(2)model2.gs代码：
+'open model.ctl'
+'set lon -60'
+'set lat 0 90'
+'set z 1 7'
+'set zlog on'
+m=1
+while(m<=5)
+'set t 'm''
+'set cmax 10'
+'set cmin -20'
+'set gxout shaded'
+'d tair-273.15'
+'cbarn'
+'set gxout contour'
+'set ccolor 1'
+'d v'
+'draw title Time='m''
+'printim vertical'%m%'.png'
+'disable fwrite'
+m=m+1
+'c'
+endwhile
+;
+(输出的图片都在压缩档里)
