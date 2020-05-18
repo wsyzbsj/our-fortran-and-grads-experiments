@@ -1,0 +1,60 @@
+1.
+data1.gs
+'open DATA.CTL'
+'set lev 200'
+'set lon 60'
+'set lat 20'
+'set t 1 48'
+'d tloop(aave(u,lon=60,lon=80,lat=20,lat=30))'
+'printim 1.png'
+'disable fwrite'
+2.
+data2.gs
+'open DATA.CTL'
+'set lon 100'
+'set t 1 48'
+'set xyrev on'
+'d tloop(ave(H,lon=100,lon=120))'
+'printim 2.png'
+'disable fwrite'
+3.
+data3-200.gs
+'open DATA.CTL'
+'set lev 200'
+'set lon 60 150'
+'set lat 0 40'
+m=1
+n=1
+o=1
+p=1
+while(m<=4)
+o=12*m-6
+p=12*m-3
+'d ave(u,t='o',t='p');ave(v,t='o',t='p')'
+n=m+1981
+'draw title YEAR'%n''
+'gxprint '%n%'-200.svg'
+'c'
+m=m+1
+endwhile
+;
+data3-850.gs
+'open DATA.CTL'
+'set lev 850'
+'set lon 60 150'
+'set lat 0 40'
+m=1
+n=1
+o=1
+p=1
+while(m<=4)
+o=12*m-6
+p=12*m-3
+'d ave(u,t='o',t='p');ave(v,t='o',t='p')'
+n=m+1981
+'draw title YEAR'%n''
+'gxprint '%n%'-850.svg'
+'c'
+m=m+1
+endwhile
+;
